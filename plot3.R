@@ -1,0 +1,11 @@
+readUCIdata=read.table("household_power_consumption.txt",header=TRUE,sep=";",na.strings="?")
+readUCIdata$Date=as.Date(readUCIdata$Date,"%d/%m/%Y")
+finaldt=subset(readUCIdata,Date>=as.Date("2007-02-01") & Date <=as.Date("2007-02-02"))
+datet=as.POSIXct(paste(finaldt$Date,finaldt$Time))
+png(filename="plot3.png",width=480,height=480, units="px")
+
+plot(datet,finaldt$Sub_metering_1,xlab="",ylab="Energy Sub metering",type="l")
+lines(datet,finaldt$Sub_metering_2,type="l",col="red")
+lines(datet,finaldt$Sub_metering_3,type="l",col="blue")
+legend("topright",c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),col=c("black","red","blue"),lwd=c(1,1,1))
+dev.off()
