@@ -1,0 +1,7 @@
+readUCIdata=read.table("household_power_consumption.txt",header=TRUE,sep=";",na.strings="?")
+readUCIdata$Date=as.Date(readUCIdata$Date,"%d/%m/%Y")
+finaldt=subset(readUCIdata,Date>=as.Date("2007-02-01") & Date <=as.Date("2007-02-02"))
+datet=as.POSIXct(paste(finaldt$Date,finaldt$Time))
+png(filename="plot2.png",width=480,height=480, units="px")
+plot(datet,finaldt$Global_active_power,xlab="",ylab="Global Active Power (kilowatts)",type="l")
+dev.off()
